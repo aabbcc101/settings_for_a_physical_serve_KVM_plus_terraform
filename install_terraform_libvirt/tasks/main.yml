@@ -1,0 +1,98 @@
+---
+# tasks file for install_terraform_libvirt
+
+  - name: Install for terraform
+    apt:
+      pkg: "{{ packagesForTerraform }}"
+
+  - name: Create directory for terraform provider
+    file:
+      path: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64
+      state: directory
+
+  - name: Delete content & directory
+    file:
+      state: absent
+      path: /usr/lib/python3.11/EXTERNALLY-MANAGED
+
+  - name: Creates temp directory
+    file:
+      path: "{{ temp_dir }}"
+      state: directory
+
+  - name: Copy requirements
+    template:
+      src: templates/requirements.txt
+      dest: "{{ temp_dir }}/requirements.txt"
+
+  - name: Install specified python requirements
+    pip:
+      requirements: "{{ temp_dir }}/requirements.txt"
+      executable: pip3
+
+  - name: Clone a github repository
+    git:
+      repo: https://github.com/matthuisman/gdrivedl.git
+      dest: "{{ temp_dir }}/google"
+      clone: yes
+      update: yes
+
+  - name: Download from google drive
+    command: "python3 {{ temp_dir }}/google/gdrivedl.py https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link"
+    args:
+      chdir: "{{ temp_dir }}"
+
+  - name: Remove old terraform-provider-libvirt
+    file: 
+      path: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64/terraform-provider-libvirt
+      state: absent
+
+  - name: Copy terraform-provider-libvirt from temp to the right place
+    copy: 
+      remote_src: True 
+      src: "{{ temp_dir }}/terraform-provider-libvirt"
+      dest: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64/terraform-provider-libvirt 
+      mode: +x
+
+  - name: Edit terraformrc
+    template:
+      src: templates/.terraformrc
+      dest: /root/.terraformrc
+
+#  - name: Edit pool default
+#    virt_pool:
+#      command: define
+#      name: vms
+#      xml: '{{ lookup("template", "dir.xml.j2") }}'
+
+  - name: Install lxml
+    pip: name=lxml
+
+  - name: Ensure that a pool is active needs to be defined and built first
+    virt_pool:
+      state: active
+      name: default
+
+  - name: Disable autostart for a given pool
+    community.libvirt.virt_pool:
+      autostart: no
+      name: default
+        
+  - name: Edit etc libvirt qemu.conf
+    template:
+      src: templates/qemu.conf
+      dest: /etc/libvirt/qemu.conf
+
+  - name: Usermod libvirt user
+    user:
+      name: "{{ ansible_user_id }}"
+      shell: /bin/bash
+      groups: libvirt
+      append: yes
+      
+  - name: Systemctl restart libvirtd
+    systemd:
+      name: libvirtd
+      state: restarted
+
+

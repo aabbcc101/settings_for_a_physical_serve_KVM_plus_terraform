@@ -1,0 +1,12 @@
+---
+# vars file for install_terraform_libvirt
+
+    packagesForTerraform:
+      - gnupg
+      - software-properties-common
+
+    temp_dir: /home/vlad/temp
+    user: vlad
+    google_drive_link: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link
+    provider_dir: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64
+

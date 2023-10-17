@@ -1,0 +1,79 @@
+---
+# tasks file for get_the_project_dir_ready
+
+  - name: Create dir for a project
+    file:
+      path: "{{ projects_terraform_dir }}"
+      state: directory
+
+
+  - name: Templates for terraform
+    template:
+      src: templates/libvirt.tf
+      dest: "{{ projects_terraform_dir }}/libvirt.tf"
+
+  - name: Templates for terraform
+    template:
+      src: templates/main.tf
+      dest: "{{ projects_terraform_dir }}/main.tf"
+
+#  - name: Download images
+#    get_url:
+#      url: "{{ item }}"
+#      dest: "{{ projects_terraform_dir }}"
+#    loop:
+#      - url: "{{ download_images[0] }}"
+#      - url: "{{ download_images[1] }}"
+
+#  - name: delete temp
+#    state: absent
+#    path: "{{ temp_dir }}"
+
+  - name: Prepare images set password
+    command: "{{ item }}"
+    args:
+      chdir: "{{ projects_terraform_dir }}"
+
+    loop:
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[0]}} --root-password password:root"
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[1]}} --root-password password:root"
+
+  - name: Prepare images uninstall sshd
+    command: "{{ item }}"
+    args:
+      chdir: "{{ projects_terraform_dir }}"
+
+    loop:
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[1]}} --uninstall openssh-server"
+
+  - name: Prepare images install sshd
+    command: "{{ item }}"
+    args:
+      chdir: "{{ projects_terraform_dir }}"
+
+    loop:
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[1]}} --install openssh-server"
+
+  - name: copy id_rsa.pub
+    template:
+      src: templates/id_rsa.pub
+      dest: "{{ temp_dir }}/id_rsa.pub"
+
+  - name: Prepare images add ssh key
+    command: "{{ item }}"
+    args:
+      chdir: "{{ projects_terraform_dir }}"
+
+    loop:
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[0]}} --ssh-inject root:file:{{ temp_dir }}/id_rsa.pub"
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[1]}} --ssh-inject root:file:{{ temp_dir }}/id_rsa.pub"
+
+  - name: Prepare images truncate machine-id
+    command: "{{ item }}"
+    args:
+      chdir: "{{ projects_terraform_dir }}"
+
+    loop:
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[0]}} --truncate /etc/machine-id"
+      - "virt-customize -a {{ projects_terraform_dir }}/{{image_names[1]}} --truncate /etc/machine-id"
+
