@@ -1,0 +1,14 @@
+---
+# tasks file for disks_settings
+
+  - name: create directory for mounting 14T
+    file:
+      path: "{{ mnt_dir_14t }}"
+      state: directory
+
+  - name: Automount 14T disk by UUID
+    ansible.posix.mount:
+      path: "{{ mnt_dir_14t }}"
+      src: "UUID={{ uuid_14t }}"
+      fstype: ext4
+      state: mounted

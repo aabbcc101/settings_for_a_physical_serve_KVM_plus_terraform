@@ -1,0 +1,5 @@
+---
+# vars file for disks_settings
+
+  uuid_14t: 6fae035e-4f27-4383-b84b-9b4b35d918a3
+  mnt_dir_14t: /mnt/main_disk_14

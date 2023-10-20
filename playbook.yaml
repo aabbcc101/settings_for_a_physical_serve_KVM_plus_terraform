@@ -2,6 +2,7 @@
   hosts: all
   become: yes
   roles:
-  - system_settings
-#  - install_terraform_libvirt
-#  - get_the_project_dir_ready
+    - system_settings
+    - disks_settings
+    - install_terraform_libvirt
+    - get_the_project_dir_ready
