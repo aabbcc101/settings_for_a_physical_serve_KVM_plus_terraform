@@ -3,5 +3,5 @@
   become: yes
   roles:
   - system_settings
-  - install_terraform_libvirt
-  - get_the_project_dir_ready
+#  - install_terraform_libvirt
+#  - get_the_project_dir_ready

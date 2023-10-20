@@ -9,6 +9,8 @@
       - git
       - python3
       - python3-pip
+      - net-tools
+      - zsh-autosuggestions
 
     packagesKVM:
       - qemu-system
@@ -28,3 +30,4 @@
     old_hostname: debian
     temp_dir: /home/vlad/temp
     user: vlad
+

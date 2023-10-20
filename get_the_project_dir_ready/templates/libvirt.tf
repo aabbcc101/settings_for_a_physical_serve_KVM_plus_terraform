@@ -138,6 +138,7 @@ resource "libvirt_domain" "cloud-debian" {
   name   = "cloud-debian"
   memory = "1048"
   vcpu   = 1
+  autostart = true
 
   network_interface {
 #    network_id     = "${libvirt_network.test_net.id}"
@@ -151,6 +152,12 @@ resource "libvirt_domain" "cloud-debian" {
 
   disk {
     volume_id = "${libvirt_volume.big-cloud-debian-qcow2.id}"
+  }
+
+  filesystem {
+    readonly   = false
+    source     = "/mnt/main_disk_14"
+    target     = "/mnt"
   }
 
   console {

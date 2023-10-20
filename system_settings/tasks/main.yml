@@ -20,12 +20,22 @@
 
   - name: Change Config
     template:
-      src: templates/.bashrc
+      src: .bashrc
       dest: "{{ item }}"
 
     loop:
       - "/home/{{ user }}/.bashrc"
       - /root/.bashrc
+
+  - name: add zshrc
+    copy:
+      src: zshrc
+      dest: /root/.zshrc
+
+  - name: change user shell to zsh 
+    user:
+      name: "root"
+      shell: /usr/bin/zsh
 
   - name: Install KVM
     apt:
