@@ -27,15 +27,24 @@
       - "/home/{{ user }}/.bashrc"
       - /root/.bashrc
 
-  - name: add zshrc
+  - name: add zshrc for root
     copy:
-      src: zshrc
+      src: root_zshrc
       dest: /root/.zshrc
 
-  - name: change user shell to zsh 
+  - name: add zshrc for user
+    copy:
+      src: user_zshrc
+      dest: "/home/{{ user }}/.zshrc"
+
+  - name: change user shell to zsh
     user:
-      name: "root"
+      name: "{{ item }}"
       shell: /usr/bin/zsh
+
+    loop:
+      - "root"
+      - "{{ user }}"
 
   - name: Install KVM
     apt:
