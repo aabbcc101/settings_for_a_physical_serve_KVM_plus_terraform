@@ -26,7 +26,7 @@
       - cockpit-machines
       - cockpit-podman
 
-    new_hostname: MainFrame
+    new_hostname: CITADELDEVELOP
     old_hostname: debian
     temp_dir: /home/vlad/temp
     user: vlad

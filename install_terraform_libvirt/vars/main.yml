@@ -10,3 +10,8 @@
     google_drive_link: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link
     provider_dir: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64
 
+    pool_name: default # images
+    download_terraform: https://drive.google.com/file/d/1I3t0dbXJNA1YsTsRsJp51HFEOeLOZwb_/view?usp=share_link
+    download_terraform_provider_libvirt: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link
+    terraform_path: /usr/local/bin
+    terraform_version_zip: terraform_1.6.2_linux_amd64.zip

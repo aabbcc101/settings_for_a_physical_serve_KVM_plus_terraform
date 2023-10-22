@@ -17,13 +17,14 @@
       src: templates/main.tf
       dest: "{{ projects_terraform_dir }}/main.tf"
 
-#  - name: Download images
-#    get_url:
-#      url: "{{ item }}"
-#      dest: "{{ projects_terraform_dir }}"
-#    loop:
-#      - url: "{{ download_images[0] }}"
-#      - url: "{{ download_images[1] }}"
+  - name: Download images
+    get_url:
+      url: "{{ item }}"
+      dest: "{{ projects_terraform_dir }}"
+      setype: https
+    loop:
+      - "{{ download_images[0] }}"
+      - "{{ download_images[1] }}"
 
 #  - name: delete temp
 #    state: absent

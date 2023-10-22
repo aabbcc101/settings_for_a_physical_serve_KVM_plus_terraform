@@ -38,7 +38,7 @@
       update: yes
 
   - name: Download from google drive
-    command: "python3 {{ temp_dir }}/google/gdrivedl.py https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link"
+    command: "python3 {{ temp_dir }}/google/gdrivedl.py {{ download_terraform_provider_libvirt }}"
     args:
       chdir: "{{ temp_dir }}"
 
@@ -53,6 +53,20 @@
       src: "{{ temp_dir }}/terraform-provider-libvirt"
       dest: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64/terraform-provider-libvirt 
       mode: +x
+
+
+  - name: Download terraform from google drive 
+    command: "python3 {{ temp_dir }}/google/gdrivedl.py {{ download_terraform }}"
+    args:
+      chdir: "{{ temp_dir }}"
+
+  - name: Unzip terraform
+    ansible.builtin.unarchive:
+      src: "{{ temp_dir }}/{{ terraform_version_zip }}" 
+      dest: "{{ terraform_path }}"
+      remote_src: yes
+      mode: +x
+        
 
   - name: Edit terraformrc
     template:
@@ -71,13 +85,13 @@
   - name: Ensure that a pool is active needs to be defined and built first
     virt_pool:
       state: active
-      name: default
+      name: "{{ pool_name }}"
 
-  - name: Disable autostart for a given pool
+  - name: Able autostart for a given pool
     community.libvirt.virt_pool:
-      autostart: no
-      name: default
-        
+      autostart: yes
+      name: "{{ pool_name }}"
+
   - name: Edit etc libvirt qemu.conf
     template:
       src: templates/qemu.conf
