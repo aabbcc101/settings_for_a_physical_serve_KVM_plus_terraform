@@ -1,0 +1,11 @@
+---
+# vars file for install_terraform
+
+    packagesForTerraform:
+      - gnupg
+      - software-properties-common
+
+    download_terraform: https://drive.google.com/file/d/1I3t0dbXJNA1YsTsRsJp51HFEOeLOZwb_/view?usp=share_link
+    terraform_path: /usr/local/bin
+    terraform_version_zip: terraform_1.6.2_linux_amd64.zip
+

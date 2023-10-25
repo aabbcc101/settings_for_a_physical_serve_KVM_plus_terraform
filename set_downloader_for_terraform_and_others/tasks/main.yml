@@ -1,0 +1,30 @@
+---
+# tasks file for set_downloader_for_terraform_and_others
+
+  - name: Creates temp directory
+    file:
+      path: "{{ temp_dir }}"
+      state: directory
+
+  - name: Delete content & directory
+    file:
+      state: absent
+      path: /usr/lib/python3.11/EXTERNALLY-MANAGED
+        
+  - name: Copy requirements
+    template:
+      src: templates/requirements.txt
+      dest: "{{ temp_dir }}/requirements.txt"
+
+  - name: Install specified python requirements
+    pip:
+      requirements: "{{ temp_dir }}/requirements.txt"
+      executable: pip3
+
+  - name: Clone a github repository
+    git:
+      repo: https://github.com/matthuisman/gdrivedl.git
+      dest: "{{ temp_dir }}/google"
+      clone: yes
+      update: yes
+

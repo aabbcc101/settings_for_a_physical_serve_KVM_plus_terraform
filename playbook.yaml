@@ -1,8 +1,14 @@
 - name: Playbook Install ALL
   hosts: all
   become: yes
+  vars:
+    temp_dir: /home/vlad/temp
   roles:
-    - system_settings
+#    - system_settings
 #    - disks_settings
-#    - install_terraform_libvirt
+    - set_downloader_for_terraform_and_others
+    - install_terraform
+    - install_terraform_providers
+    - libvirt_settings
 #    - get_the_project_dir_ready
+

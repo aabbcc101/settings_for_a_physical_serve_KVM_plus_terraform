@@ -1,0 +1,5 @@
+---
+# vars file for libvirt_settings
+
+pool_name: images #default # images
+

@@ -1,0 +1,5 @@
+---
+# vars file for install_terraform_providers
+
+    path_provider_libvirt: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64
+    download_terraform_provider_libvirt: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link

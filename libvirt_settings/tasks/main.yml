@@ -1,0 +1,39 @@
+---
+# tasks file for libvirt_settings
+
+#  - name: Edit pool default
+#    virt_pool:
+#      command: define
+#      name: vms
+#      xml: '{{ lookup("template", "dir.xml.j2") }}'
+
+  - name: Install lxml
+    pip: name=lxml
+
+  - name: Ensure that a pool is active needs to be defined and built first
+    virt_pool:
+      state: active
+      name: "{{ pool_name }}"
+
+  - name: Able autostart for a given pool
+    community.libvirt.virt_pool:
+      autostart: yes
+      name: "{{ pool_name }}"
+
+  - name: Edit etc libvirt qemu.conf
+    template:
+      src: templates/qemu.conf
+      dest: /etc/libvirt/qemu.conf
+
+  - name: Usermod libvirt user
+    user:
+      name: "{{ ansible_user_id }}"
+      shell: /bin/bash
+      groups: libvirt
+      append: yes
+
+  - name: Systemctl restart libvirtd
+    systemd:
+      name: libvirtd
+      state: restarted
+
