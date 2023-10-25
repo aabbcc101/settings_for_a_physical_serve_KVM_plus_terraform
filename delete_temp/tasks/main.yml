@@ -1,0 +1,6 @@
+---
+# tasks file for delete_temp
+
+  - name: delete temp
+    state: absent
+    path: "{{ temp_dir }}"

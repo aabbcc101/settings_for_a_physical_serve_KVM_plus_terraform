@@ -10,6 +10,4 @@
       - debian-12-nocloud-amd64.qcow2
 
     projects_terraform_dir: /root/projects/terraform
-    temp_dir: /home/vlad/temp
-    user: vlad
 
