@@ -1,5 +1,14 @@
----
+
 # vars file for install_terraform_providers
 
     path_provider_libvirt: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/libvirt/0.7.1/linux_amd64
-    download_terraform_provider_libvirt: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link
+    name_provider_libvirt: terraform-provider-libvirt
+    link_provider_libvirt: https://drive.google.com/file/d/18cD8yE3tEmIxsDvJeo-u1nRbhEGrNAlM/view?usp=drive_link
+   
+    path_provider_hosts: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/hosts/1.0.0/linux_amd64
+    name_provider_hosts: terraform-provider-hosts
+    link_provider_hosts: https://drive.google.com/file/d/1RrYF59zMa1C_GuQltZHYab_yso0zj-xb/view?usp=drive_link
+
+    path_provider_iptables: /root/.terraform.d/plugins/registry.terraform.io/hashicorp/iptables/1.2.1/linux_amd64
+    name_provider_iptables: terraform-provider-iptables_v1.2.1
+    link_provider_iptables: https://drive.google.com/file/d/1a3VG10ZyQ96vfRWcxgNF0NV7vk5vQXn5/view?usp=drive_link

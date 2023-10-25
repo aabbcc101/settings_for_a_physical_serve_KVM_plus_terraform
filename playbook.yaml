@@ -10,5 +10,5 @@
     - install_terraform
     - install_terraform_providers
     - libvirt_settings
-    - get_the_project_dir_ready
+#    - get_the_project_dir_ready
 #   - delete_temp

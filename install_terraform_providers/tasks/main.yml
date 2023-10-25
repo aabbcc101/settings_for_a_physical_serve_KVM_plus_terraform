@@ -3,23 +3,44 @@
 
   - name: Create directory for terraform provider
     file:
-      path: "{{ path_provider_libvirt }}"
+      path: "{{ item }}"
       state: directory
 
+    loop:
+      - "{{ path_provider_libvirt }}"
+      - "{{ path_provider_hosts }}"
+      - "{{ path_provider_iptables }}"
+
+
   - name: Download provider libvirt from google drive
-    command: "python3 {{ temp_dir }}/google/gdrivedl.py {{ download_terraform_provider_libvirt }}"
+    command: "python3 {{ temp_dir }}/google/gdrivedl.py {{ item }}"
     args:
       chdir: "{{ temp_dir }}"
+ 
+    loop:
+      - "{{ link_provider_libvirt }}"
+      - "{{ link_provider_hosts }}"
+      - "{{ link_provider_iptables }}"
 
-  - name: Remove old terraform-provider-libvirt
+  - name: Remove old terraform-provider
     file: 
-      path: "{{ path_provider_libvirt }}/terraform-provider-libvirt"
+      path: "{{ item }}"
       state: absent
+
+    loop:
+      - "{{ path_provider_libvirt }}/{{ name_provider_libvirt }}"
+      - "{{ path_provider_hosts }}/{{ name_provider_hosts }}"
+      - "{{ path_provider_iptables }}/{{ name_provider_iptables }}"
 
   - name: Copy terraform-provider-libvirt from temp to the right place
     copy: 
       remote_src: True 
-      src: "{{ temp_dir }}/terraform-provider-libvirt"
-      dest: "{{ path_provider_libvirt }}/terraform-provider-libvirt" 
+      src: "{{ item.src }}"
+#      dest: "{{ path_provider_libvirt }}/terraform-provider-libvirt" 
+      dest: "{{ item.dest }}" 
       mode: +x
 
+    loop:
+      -  { src: "{{ temp_dir }}/{{ name_provider_libvirt }}", dest: "{{ path_provider_libvirt }}/{{ name_provider_libvirt }}" }
+      -  { src: "{{ temp_dir }}/{{ name_provider_hosts }}", dest: "{{ path_provider_hosts }}/{{ name_provider_hosts }}" }
+      -  { src: "{{ temp_dir }}/{{ name_provider_iptables }}", dest: "{{ path_provider_iptables }}/{{ name_provider_iptables }}" }

@@ -12,6 +12,7 @@
       - net-tools
       - zsh-autosuggestions
       - ripgrep
+      - tree
 
     packagesKVM:
       - qemu-system
