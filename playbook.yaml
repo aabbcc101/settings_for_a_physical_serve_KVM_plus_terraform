@@ -6,9 +6,10 @@
   roles:
 #    - system_settings
 #    - disks_settings
-    - set_downloader_for_terraform_and_others
-    - install_terraform
-    - install_terraform_providers
-    - libvirt_settings
+#    - set_downloader_for_terraform_and_others
+#    - install_terraform
+#    - install_terraform_providers
+#    - libvirt_settings
+    - iptables_api_service
 #    - get_the_project_dir_ready
 #   - delete_temp

@@ -1,0 +1,16 @@
+[Unit]
+Description=iptables-api
+After=multi-user.target
+ 
+[Service]
+User=root
+Group=root
+Type=simple
+
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/bash /root/.services/iptables_api.sh
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,6 @@
+---
+# vars file for iptables_api_service
+
+iptables_api_bin: iptables-api
+iptables_api_dir: /root/.services
+systemd_dir: /etc/systemd/system

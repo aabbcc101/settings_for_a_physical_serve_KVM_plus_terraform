@@ -1,0 +1,34 @@
+---
+# tasks file for iptables_api_service
+
+  - name: Create dir for a iptables-api
+    file:
+      path: "{{ iptables_api_dir }}"
+      state: directory
+
+  - name: add the service
+    template:
+      src: templates/iptables_api.service
+      dest: "{{ systemd_dir }}"
+      mode: +x 
+
+  - name: copy a binary or iptables-api
+    copy:
+      src: "{{ item }}"
+      dest: "{{ iptables_api_dir }}"
+      mode: +x
+
+    loop:
+      - "templates/{{ iptables_api_bin }}"
+      - templates/iptables_api.sh
+
+  - name: Systemctl start and enabled  iptables_api.service
+    service:
+      name: iptables_api.service
+      state: started
+      enabled: true
+
+
+
+
+
