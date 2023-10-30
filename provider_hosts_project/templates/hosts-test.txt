@@ -1,0 +1,5 @@
+1.1.1.1   myHost1 myHost1.local   # server myhost1
+##### Start Of Terraform Zone: myzone ##########################################
+999.999.999.999 myhost999 myhost999.local # server myhost999
+111.111.111.111 myhost111 myhost111.local # server myhost111
+##### End Of Terraform Zone: myzone ############################################

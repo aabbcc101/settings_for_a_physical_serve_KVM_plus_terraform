@@ -1,0 +1,4 @@
+---
+# vars file for provider_iptables_project
+
+project_dir: /root/projects/iptables

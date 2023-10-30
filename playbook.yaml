@@ -10,6 +10,11 @@
 #    - install_terraform
 #    - install_terraform_providers
 #    - libvirt_settings
-    - iptables_api_service
-#    - get_the_project_dir_ready
+#   - iptables_api_service
+
+# first projects
+#    - provider_libvirt_project
+    - provider_hosts_project
+    - provider_iptables_project
+
 #   - delete_temp

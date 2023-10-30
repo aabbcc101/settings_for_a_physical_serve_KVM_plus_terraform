@@ -1,0 +1,17 @@
+---
+# tasks file for provider_iptables_project
+
+
+  - name: Create dir for a project for iptables
+    file:
+      path: "{{ project_dir }}"
+      state: directory
+
+  - name: Templates for terraform
+    template:
+      src: "{{ item }}"
+      dest: "{{ project_dir }}"
+
+    loop:
+      - templates/iptables.tf
+      - templates/main.tf

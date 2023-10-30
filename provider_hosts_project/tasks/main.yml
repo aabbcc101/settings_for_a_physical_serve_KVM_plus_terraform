@@ -1,0 +1,18 @@
+---
+# tasks file for provider_hosts_project
+
+  - name: Create dir for a project for hosts
+    file:
+      path: "{{ project_dir }}"
+      state: directory
+
+  - name: Templates for terraform
+    template:
+      src: "{{ item }}"
+      dest: "{{ project_dir }}"
+
+    loop:
+      - templates/hosts-test.txt
+      - templates/hosts.tf
+      - templates/main.tf
+

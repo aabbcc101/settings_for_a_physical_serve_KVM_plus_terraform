@@ -1,0 +1,4 @@
+---
+# vars file for provider_hosts_project
+
+project_dir: /root/projects/hosts
