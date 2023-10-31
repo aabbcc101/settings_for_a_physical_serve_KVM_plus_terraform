@@ -14,30 +14,30 @@ Also iptables connects to iptables-api, so I created a service to use
 https://github.com/jeremmfr/iptables-api
 
 In playbook.yaml you can find first projects. Uncomment them if you wanna use them as easy start.
-*** first projects***
+**first projects**
     - provider_libvirt_project
     - provider_hosts_project
     - provider_iptables_project
 
-*** - system_settings ***
+**- system_settings**
  install all required packages. Some of them I like to use. You can add your own if you want to
 
-***  - disks_settings ***
+**- disks_settings**
 mount an external hdd. this option is useful for creating data clouds or something else
 Alter it for your task
 
-***    - set_downloader_for_terraform_and_others ***
+**- set_downloader_for_terraform_and_others**
 terraform website is banned aroud here, so I merely upload all I need to my google drive
 I use an app wroten by python to download files.
 
-***    - install_terraform ***
-***    - install_terraform_providers ***
+**- install_terraform**
+**- install_terraform_providers**
 install  
 
-***   - libvirt_settings ***
+**- libvirt_settings**
 settings for libvirt
 
-***   - iptables_api_service ***
+**- iptables_api_service**
 create a new service for iptables here
 
 
